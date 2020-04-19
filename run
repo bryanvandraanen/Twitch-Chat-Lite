@@ -1,0 +1,24 @@
+#!/bin/bash
+
+javac -d bin src/*.java src/chat/*.java src/clue/*.java src/config/*.java src/edge/*.java src/irc/*.java src/pubsub/*.java src/room/*.java src/util/*.java
+
+if [ "$1" == "room" ]; then
+    java -cp bin room.RoomApp --log
+elif [ "$1" == "pubsub" ]; then
+    java -cp bin pubsub.PubSubApp --log
+elif [ "$1" == "edge" ]; then
+    java -cp bin edge.EdgeApp --log
+elif [ "$1" == "client" ]; then
+    java -cp bin chat.ClientApp
+elif [ "$1" == "local" ]; then
+    java -cp bin LocalLauncher
+else
+    echo "Expected usage: ./run <arg>"
+    echo "Valid arguments:"
+    echo -e "    \"room\" - Launches Twitch Chat Room server on this host (with logging)"
+    echo -e "    \"pubsub\" - Launches Twitch Chat PubSub server on this host (with logging)"
+    echo -e "    \"edge\" - Launches Twitch Chat Edge server on this host (with logging)"
+    echo -e "    \"client\" - Runs the main client-side chat application which connects to Twitch Chat network"
+    echo -e "    \"local\" - Launches entire Twitch Chat network and client application locally on this host"
+fi
+
